@@ -1,0 +1,50 @@
+import os as OS
+import logging as log
+
+#Verifies that the path exists
+def pathCheck(path):  
+  return OS.path.exists(path)
+
+path = ""
+fileName = ""
+name = ""
+address = ""
+phone = ""
+
+#Verifies path
+while pathCheck(path) != True:
+  path = input("Please specify a directory to save a file in. Use foward slashes and not backward slashes: ")
+  if pathCheck(path) == True:
+    print("The path is valid.\n")
+
+#Gets file name
+fileName = input("Please enter a name for your file. Do not add file extensions: ")
+fileName = fileName + ".csv"
+
+#Merges the path and filename into one for later use
+fileName = path + "/" + fileName
+print(fileName)
+
+#Gets name
+name = input("\nPlease enter your name: ")
+
+#Gets address
+address = input("\nPlease enter your address: ")
+
+#Gets number
+number = input("\nPlease enter your number: ")
+
+#This is the line that will be exported to external file.
+data = name + ", " + address + ", " + number
+
+#sets the logs to go to this file, and lowers the logging threshold
+log.basicConfig(filename = fileName, level=log.INFO)
+
+#logs to file
+log.info(data)
+
+#Prints log file contents
+print("\n********** LOG FILE **********")
+readFrom = open(fileName, "r+")
+line = readFrom.readline()
+print(line)
